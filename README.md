@@ -56,6 +56,21 @@ bash comfy-dl.sh
 - 模型 → `$WORKSPACE/ComfyUI/models/checkpoints/`
 - LoRA → `$WORKSPACE/ComfyUI/models/loras/`
 
+## 修改存放路径
+
+如需更改默认的存放目录，编辑 [comfy-dl.sh](comfy-dl.sh) 中 `case $type_choice` 分支（约第 32-36 行）：
+
+```bash
+case $type_choice in
+    1) dest="checkpoints"; break ;;   # 模型存放目录
+    2) dest="loras"; break ;;         # LoRA 存放目录
+    *) echo "[提示] 无效选项，请输入 1 或 2"; echo "" ;;
+esac
+```
+
+- **模型存放路径**：可将 `checkpoints` 改为 `diffusion_models`（ComfyUI 也会从该目录加载扩散模型）。
+- **LoRA 存放路径**：请勿修改，必须保持为 `loras`，否则 ComfyUI 的 LoRA 加载节点无法识别。
+
 ## 特性
 
 - 进度条显示
@@ -72,3 +87,4 @@ bash comfy-dl.sh
 
 **Q: CivitAI 提示认证失败？**
 在 CivitAI 账户设置中生成 API Key，填入 `comfy-dl.sh` 的 `CIVITAI_API_KEY`。
+
